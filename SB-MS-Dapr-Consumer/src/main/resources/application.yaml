@@ -1,0 +1,4 @@
+dapr:
+  prov-port: 9900
+  prov-appId: providerApp
+  orderUrl: http://localhost:${dapr.prov-port}/v1.0/invoke/${dapr.prov-appId}/method
