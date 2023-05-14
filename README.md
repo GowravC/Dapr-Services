@@ -1,52 +1,110 @@
-Service  invocation Using Producer and Consumer
-Pre-requisites
-* Dapr and Dapr CLI.
+# Service-Service invocation Example
+
+In this Example, we have create two java applications: a service application which exposes a method / endpoint and a client application which will invoke the method from the service using Dapr.
+This example includes:
+
+* BillingService (Exposes the method to be remotely accessed)
+* ShoppingApp (Invokes the exposed method from BillingService)
+
+Visit [this](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) link for more information about Dapr and service invocation.
+ 
+* [Dapr and Dapr CLI](https://docs.dapr.io/getting-started/install-dapr/).
 * Java JDK 11 (or greater):
-o Microsoft JDK 11
-o OpenJDK 11
-* Eclipse / STS(Spring Tool Suite)
-* Apache Maven version 3.x.
+    * [Microsoft JDK 11](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11)
+    * [Oracle JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/index.html#JDK11)
+    * [OpenJDK 11](https://jdk.java.net/11/)
+* [Apache Maven](https://maven.apache.org/install.html) version 3.x.
+* [Eclipse / STS (Spring Tool Suite)](https://spring.io/tools).
 
-Step 1: Install Dapr CLI
+## NOTE
+We are Running Dapr in self-hosted mode without Docker
+* Initialize Dapr without containers
+The Dapr CLI provides an option to initialize Dapr using slim init, without the default creation of a development environment with a dependency on Docker. To initialize Dapr with slim init, after installing the Dapr CLI, use the following command:
 
-Download the MSI package dapr.msi from latest Dapr release.
-
-Step 2: Initialize Dapr without Containers
-
-Run the following command to initialize Dapr:
+```sh
 dapr init --slim
-This will create a default configuration file in your current directory.
+```
 
-Verify Dapr Version
-dapr --version
-
-Step 3: Start Dapr
-
-Run the following command to start Dapr:
-dapr start
-This will start the Dapr runtime on your PC.
-
-Step 4: Verify Dapr Installation
-Run the following command to verify that Dapr is running:
-dapr status
-This should display the status of the Dapr runtime.
-				
+### Checking out the code
 
 Clone this repository:
+
+```sh
 git clone https://github.com/dapr/Dapr-Services.git
 cd Dapr-Services
+```
 
-Project Setup:
-Import the Project Folder into STS workspace
-Clean and install both Producer and Consumer apps using maven clean and maven install option
+### Run Java Billing Service App with Dapr
+
+1. Import the SB-MS-Dapr-Provider MS Project into STS workspace and perform:
+ * Right click on project -> `Run As` -> `Maven clean`
+ * Right click on project -> `Run As` -> `Maven install`
+ 
+or 
+
+   Navigate to `SB-MS-Dapr-Provider` directory and install dependencies:
+
+```bash
+cd ./SB-MS-Dapr-Provider
+mvn clean install
+```
+  
+2.  Open a new terminal window, navigate to `SB-MS-Dapr-Provider` directory and Run the Java Billing Service App with Dapr:
+
+```bash
+cd ./SB-MS-Dapr-Provider
+dapr run --app-id BillingServiceApp --app-port 9900 -- java -jar target/SB-MS-Dapr-Provider-0.0.1-SNAPSHOT.jar
+```
+
+### Run Java Shopping App with Dapr
+
+1. Import the SB-MS-Dapr-Consumer MS Project into STS workspace and perform:
+ * Right click on project -> `Run As` -> `Maven clean`
+ * Right click on project -> `Run As` -> `Maven install`
+ 
+or 
+
+Navigate to `SB-MS-Dapr-Consumer` directory and install dependencies:
+
+```bash
+cd ./SB-MS-Dapr-Consumer
+mvn clean install
+```
+  
+2.  Open a new terminal window, navigate to `SB-MS-Dapr-Consumer` directory and Run the Java Shopping App with Dapr:
+
+```bash
+cd ./SB-MS-Dapr-Consumer
+dapr run --app-id ShoppingApp --app-port 8080 -- java -jar target/SB-MS-Dapr-Consumer-0.0.1.jar
+```
+
+## Now both Producer and Consumer MS running with Dapr, Endpoint or API of Consumer (invoking the endpoint of Producer through Dapr) can be tested in Postman:
+
+### Postman 
+* HttpExtension - `GET`
+* API - `http://localhost:8080/shopping/shopping-details`
+
+### Output:
+
+```sh
+{
+    "customerName": "Name of Customer",
+    "products": [
+        "product 1",
+        "product 2",
+	"product 3"
+    ],
+    "totalAmt": <Random amount 70000 - 80000>,
+    "paymentMode": "Card Payment"
+}
+```
+
+## Cleanup
+
+To stop the apps run (or press CTRL+C):
 
 
-Run using command prompt:
-Run the MS App in CMD - dapr run --app-id "app-id" --app-port "app-port" -- java -jar "Specify jar file location“
-
-Command to run Provider App –  dapr run --app-id providerApp --app-port 9900 -- java -jar target/SB-MS-Dapr-Provider-0.0.1-SNAPSHOT.jar
-•This App provides Bill Amount and Payment Type by consuming data from Producer App.
-•Used Dapr to get data from Producer App.
-Command to run Consumer App - dapr run --app-id springapp --app-port 8080 -- java -jar target/spring-dapr-0.0.1.jar
-	This App consumes data from provider app and gives the output
-
+```bash
+dapr stop --app-id BillingServiceApp
+dapr stop --app-id ShoppingApp
+```
