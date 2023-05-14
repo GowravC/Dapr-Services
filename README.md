@@ -8,6 +8,8 @@ This example includes:
 
 Visit [this](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/) link for more information about Dapr and service invocation.
  
+ ## Pre-requisites
+ 
 * [Dapr and Dapr CLI](https://docs.dapr.io/getting-started/install-dapr/).
 * Java JDK 11 (or greater):
     * [Microsoft JDK 11](https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11)
