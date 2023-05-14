@@ -1,4 +1,4 @@
-# Service-Service invocation Example
+# Dapr Service-to-service invocation Example
 
 In this Example, we have create two java applications: a service application which exposes a method / endpoint and a client application which will invoke the method from the service using Dapr.
 This example includes:
@@ -42,7 +42,7 @@ cd Dapr-Services
  
 or 
 
-   Navigate to `SB-MS-Dapr-Provider` directory and install dependencies:
+Navigate to `SB-MS-Dapr-Provider` directory and install dependencies:
 
 ```bash
 cd ./SB-MS-Dapr-Provider
