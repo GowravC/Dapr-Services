@@ -13,7 +13,7 @@ public class BillingService {
 		Random ran = new Random();
 		Billing billing = new Billing();
 		billing.setBillId(ran.nextLong(100));
-		billing.setTotalAmt(ran.nextDouble(80000 - 70000) + 70000);
+		billing.setTotalAmt(ran.nextDouble(80000 - 70000) + 70000); //70000 to 800000
 		billing.setPaymentMode("Card Payment");
 		return billing;
 	}

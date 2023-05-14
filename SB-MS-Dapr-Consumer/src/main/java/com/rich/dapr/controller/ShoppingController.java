@@ -14,18 +14,18 @@ import com.rich.dapr.service.ShoppingService;
 @RestController
 public class ShoppingController {
 
-	@Autowired
-	private ShoppingService shoppingService;
+@Autowired
+private ShoppingService shoppingService;
 
-	@GetMapping(value = "/shopping-details")
-	public ResponseEntity<?> GetShoppingDetails() {
-		try {
-			ShoppingDeatils shoppingDetails = shoppingService.GenerateShoppingDetails();
-			return new ResponseEntity<ShoppingDeatils>(shoppingDetails, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<String>("Problem in genrating the Shopping Details",
-					HttpStatus.INTERNAL_SERVER_ERROR);
+@GetMapping(value = "/shopping-details")
+public ResponseEntity<?> GetShoppingDetails() {
+	try {
+		ShoppingDeatils shoppingDetails = shoppingService.GenerateShoppingDetails();
+		return new ResponseEntity<ShoppingDeatils>(shoppingDetails, HttpStatus.OK);
+	} catch (Exception e) {
+		e.printStackTrace();
+		return new ResponseEntity<String>("Problem in genrating the Shopping Details",
+				HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

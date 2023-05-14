@@ -33,7 +33,6 @@ public class BillSdkClient {
 		} catch (DaprException exception) {
 			log.error("Dapr error code: {}, message: {}", exception.getErrorCode(), exception.getMessage());
 		}
-		log.info("returned by sdk {}", response);
 		String result = new String(response);
 		log.info("returned by sdk {}", result);
 		ObjectMapper mapper = new ObjectMapper();

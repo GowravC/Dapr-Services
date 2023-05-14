@@ -14,8 +14,8 @@ public class ShoppingService {
 
 	public ShoppingDeatils GenerateShoppingDetails() {
 		ShoppingDeatils shoppingDeatils = new ShoppingDeatils();
-		shoppingDeatils.setCustomerName("Gowrav");
-		shoppingDeatils.setProducts(new String[] { "Samsung Galaxy S22+", "Samsung 25W Travel Adapter" });
+		shoppingDeatils.setCustomerName("Name of Customer");
+		shoppingDeatils.setProducts(new String[] { "product 1", "product 2", "product 3" });
 		shoppingDeatils.setTotalAmt(billSdkClient.getPaymentDeatils().getTotalAmt());
 		shoppingDeatils.setPaymentMode(billSdkClient.getPaymentDeatils().getPaymentMode());
 		return shoppingDeatils;

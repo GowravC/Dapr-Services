@@ -22,7 +22,8 @@ public class BillingServiceController {
 			return new ResponseEntity<Billing>(BillDetails, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>("Problem in genrating the Bill Amount", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Problem in genrating the " + "Bill Details",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

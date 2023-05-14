@@ -7,10 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DaprConfig {
-
-    @Bean
-    DaprClient getClient() {
-        return (new DaprClientBuilder()).build();
-    }
-
+	@Bean
+	DaprClient getClient() {
+		return (new DaprClientBuilder()).build();
+	}
 }
