@@ -1,0 +1,28 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: redis-statestore
+spec:
+  type: state.redis
+  metadata:
+  - name: redisHost
+    value: localhost
+  - name: redisPassword
+    value: ""  # If Redis doesn't require a password, leave it empty
+  - name: redisPort
+    value: "6379"
+  - name: redisDb
+    value: "0"  # Specify the Redis database index
+
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: actorapp
+spec:
+  type: actors
+  metadata:
+  - name: actors.app_id
+    value: dapr-actor-example
+  - name: actors.statestore
+    value: redis-statestore
