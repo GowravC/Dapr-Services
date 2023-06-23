@@ -1,6 +1,8 @@
 package com.softtek.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,30 +10,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.dapr.client.DaprClient;
-import io.dapr.client.domain.State;
+import com.softtek.service.StateService;
 
 @RestController
 public class StateController {
 
 	@Autowired
-	private DaprClient daprClient;
+	private StateService stateService;
 
 	@PostMapping("/state/{key}")
-	public String saveState(@PathVariable String key, @RequestBody String value) {
-		daprClient.saveState("redis", key, value).block();
-		return "Key: " + key + "State Saved successfully";
+	public ResponseEntity<?> saveState(@PathVariable String key, @RequestBody String value) {
+		try {
+			String rs = stateService.saveState(key, value);
+			return new ResponseEntity<String>(rs, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("Problem in Saving the state of Key: " + key,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/state/{key}")
-	public String getState(@PathVariable String key) {
-		State<String> state = daprClient.getState("redis", key, String.class).block();
-		return state != null ? state.getValue() : null;
+	public ResponseEntity<?> getState(@PathVariable String key) {
+		try {
+			String rs = stateService.getState(key);
+			return new ResponseEntity<String>(rs, HttpStatus.OK);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("Problem in getting the state of Key: " + key,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping("/state/{key}")
-	public String deleteState(@PathVariable String key) {
-		daprClient.deleteState("redis", key).block();
-		return "Key: " + key + " State Deleted successfully";
+	public ResponseEntity<?> deleteState(@PathVariable String key) {
+		try {
+			String rs = stateService.deleteState(key);
+			return new ResponseEntity<String>(rs, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("Problem in deleting the state of Key: " + key,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
