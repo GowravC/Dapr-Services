@@ -9,6 +9,7 @@ import com.register.entity.User;
 @Service
 public interface IUserService {
 
+
 	public String addUser(User user) throws Exception;
 
 	public String updateUser(User user) throws Exception;

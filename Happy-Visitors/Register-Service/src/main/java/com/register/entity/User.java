@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "User")
-@Setter
-@Getter
+@Data
 public class User {
 
 	@Id
@@ -22,8 +22,11 @@ public class User {
 
 	private String password;
 
-	private Integer roleId;
+	@ManyToOne
+	@JoinColumn(name = "roleId", referencedColumnName = "roleId")
+	private Role role;
 
 	private LocalDateTime createdAt;
 
+	
 }

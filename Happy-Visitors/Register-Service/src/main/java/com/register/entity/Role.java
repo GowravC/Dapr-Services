@@ -6,13 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
 @Table(name = "Role")
-@Setter
-@Getter
+@Data
 public class Role {
 
 	@Id
@@ -22,7 +20,6 @@ public class Role {
 
 	private String descrpition;
 
-	private Integer permissionId;
-
 	private LocalDateTime createdAt;
+
 }
