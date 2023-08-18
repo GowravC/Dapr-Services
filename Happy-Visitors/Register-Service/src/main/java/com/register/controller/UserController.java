@@ -47,7 +47,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Problem in inserting the User", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Problem in Updating User..Try againg ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -105,7 +105,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Error in finding User with id "+userId, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Error in finding Deleting User with id "+userId, HttpStatus.NOT_FOUND);
 		}
 	}
 

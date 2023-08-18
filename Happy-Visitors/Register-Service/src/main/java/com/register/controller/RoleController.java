@@ -47,7 +47,7 @@ public class RoleController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Problem in inserting the role", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class RoleController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>("Problem in Updating Role..Try againg ", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -105,7 +105,7 @@ public class RoleController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Error in finding Role with id "+roleId, HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class RoleController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("Error in Deleting Role with id "+roleId, HttpStatus.NOT_FOUND);
 		}
 	}
 
